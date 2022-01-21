@@ -3,22 +3,33 @@
 # the last elements are in decreasing order, where . You need to find the lexicographically smallest zig zag sequence of the given array.
 
 
+# You need to do just 3 modifications. Whether you rewrite the code it doesn't work.
+
 
 def findZigZagSequence(a, n):
     a.sort()
-    mid = int((n + 1)/2) -1
-    
-    median = max(a)
-    first = a[0:mid]
-    second = a[mid+1::]
-    second = a[mid:n-1]
-    second = second[::-1]
-    first.append(median)
-    res = first + second
-    return print(*res)
+    mid = int((n + 1)/2) - 1       # change the median
+    a[mid], a[n-1] = a[n-1], a[mid]
+
+    st = mid + 1
+    ed = n - 2                     # take the penultimate element
+    while(st <= ed):
+        a[st], a[ed] = a[ed], a[st]
+        st = st + 1
+        ed = ed - 1.               # decrease instead increase 
+
+    for i in range (n):
+        if i == n-1:
+            print(a[i])
+        else:
+            print(a[i], end = ' ')
+    return
 
 test_cases = int(input())
 for cs in range (test_cases):
     n = int(input())
     a = list(map(int, input().split()))
     findZigZagSequence(a, n)
+
+
+
